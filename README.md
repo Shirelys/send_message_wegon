@@ -14,7 +14,7 @@
 
 https://www.bilibili.com/video/BV1ke4y1o7Wd/
 
-在我刚想构思这个教程怎么让不懂编程的朋友很快入门的时候，我考虑到：避免服务器搭建，避免定时任务，避免接触代码。在经历过各种思考后，觉得可以用 Github Actions 来白嫖。。
+在我刚想构思这个教程怎么让不懂编程的朋友很快入门的时候，我考虑到：避免服务器搭建，避免定时任务，避免接触代码。在经历过各种思考后，觉得可以用 Github Actions 来白嫖。。你如果有一个自己的服务器可以参考[这里](#代码使用)运行代码。
 
 效果如图。当然，文字是可以修改的。
 <img src="https://user-images.githubusercontent.com/9566402/183242263-c93517a2-5377-435d-8386-8d47252c9e07.jpg" width="300px" />
@@ -52,6 +52,40 @@ ps. 有一些注意事项在此补充
 3. 变量中粘贴的各种英文字符串不要有空格，不要有换行，除了模板之外都没有换行
 4. Github Actions 的定时任务，在 workflow 的定义是 `0 0 * * *`，是 UTC 时间的零点，北京时间的八点。但是由于 Github 同一时间任务太多，因此会有延迟
 5. 我会偶尔优化一下代码，emm 但现在我自己在做一个完整的平台项目，想让大家更加便捷地上手
+
+## 代码使用
+如果你有一个自己的服务器，或是不会关机的电脑，可以通过如下方式使用代码。本项目使用Python3。
+
+注意：以下步骤面向具有一定编程基础的同学，需要了解git和Python的基本使用。如果你是纯小白，建议参考上面的[教程](#使用说明)通过Github Actions来使用本项目。如果仍想尝试通过代码方式运行，请先安装好git和Python3，git的安装教程可参考[这里](https://www.liaoxuefeng.com/wiki/896043488029600/896067074338496)，Python3的安装可参考[这里](https://www.liaoxuefeng.com/wiki/1016959663602400/1016959856222624)。
+
+1. 首先clone本仓库：
+
+```bash
+git clone https://github.com/rxrw/daily_morning.git
+```
+
+2. 安装依赖：
+
+```bash
+cd daily_morning
+
+pip3 install -r requirements.txt
+```
+
+3. 根据示例完成配置文件`config.yaml`。 `app_id`、 `app_secret`、 `user_ids` 和 `template_id` 的配置可参考[使用说明](#使用说明)
+
+4. 运行代码`timer.py`，即可实现每日定时发送：
+
+```bash
+python3 timer.py
+```
+
+附：当然，如果你有多个女朋友，你可以在微信公众平台上为她们设置不同的模板，并且为每个人分别建立一个配置文件，例如：`xiaomei.yaml` 和`xiaohong.yaml`（注意在配置时千万不要写错了`user_ids`）。然后同时运行两个服务：
+```bash
+python3 timer.py --cfg xiaomei.yaml &
+
+python3 timer.py --cfg xiaohong.yaml &
+```
 
 ## 版权相关
 
