@@ -29,6 +29,12 @@ if __name__ == '__main__':
     with open(args.cfg, "r", encoding="utf-8") as fd:
         config = yaml.safe_load(fd)
     config['USER_ID'] = '\n'.join(config['USER_ID'])
+
+    if type(config['BIRTHDAY']) is list:
+        config['BIRTHDAY'] = '\n'.join(config['BIRTHDAY'])
+    else:
+        config['BIRTHDAY'] = config['BIRTHDAY']
+
     env = {**os.environ, **config}
     print("开始运行，等待定时触发...")
 

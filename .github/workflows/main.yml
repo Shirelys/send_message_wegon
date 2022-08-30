@@ -13,7 +13,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v3
       with:
-        ref: master
+        ref: ${{ env.GITHUB_REF_NAME }}
 
     - name: sender
       uses: actions/setup-python@v2

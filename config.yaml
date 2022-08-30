@@ -4,7 +4,9 @@ DAILY_TIME: "14:00" # 每日定时发送时间。该时间为系统时间，如�
 
 START_DATE: "2020-05-20" # 纪念日
 CITY: "北京"
-BIRTHDAY: "05-21"
+
+BIRTHDAY:
+  - "05-21"
 
 APP_ID: "微信公众平台的 APP ID"
 APP_SECRET: "微信公众平台的 APP SECRET"

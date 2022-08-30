@@ -30,6 +30,22 @@ https://www.bilibili.com/video/BV1ke4y1o7Wd/
 ![381e8ee4a7c5ec6b8c09719f2c7e486](https://user-images.githubusercontent.com/9566402/183242295-4dcf06bb-2083-4883-8745-0af753ca805c.png)
 ![48c60750cec7adc546e0ad99e3082b3](https://user-images.githubusercontent.com/9566402/183242320-18500adc-14e5-4522-a3ad-ae19cc4479bf.png)
 
+文字来一遍
+
+APP_ID: 公众平台 appID
+
+APP_SECRET: 公众平台 appSecret
+
+TEMPLATE_ID: 模板 ID
+
+USER_ID: 接收人的 OpenID 多个用换行分隔
+
+BIRTHDAY: 倒数日（原生日），换行分隔，见更新说明。格式如 05-20，1999-11-04 这种
+
+START_DATE: 正数日期，格式：2008-08-08
+
+CITY: 城市，不要加市，准确到地级市。比如：北京、天津、广州、承德。
+
 启用自己项目下的 Action！
 ![30a5b1b2b06ba4a40a3d8ef01652409](https://user-images.githubusercontent.com/9566402/183242334-9943c538-ba3d-4d01-8377-d040143b7560.png)
 
@@ -138,4 +154,3 @@ python3 timer.py --cfg xiaohong.yaml &
 <img src="https://user-images.githubusercontent.com/9566402/186464691-61529ffc-e5e8-42d6-8f39-1516ca4d3738.jpg" width="300px" />
 
 如果觉得这个项目对你有用，欢迎给我买杯咖啡
-
