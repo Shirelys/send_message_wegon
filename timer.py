@@ -15,7 +15,7 @@ args = parser.parse_args()
 
 def send_message_now(env):
     print("running...")
-    subprocess.run(["python main.py"], shell=True, env=env)
+    subprocess.run([f"{sys.executable}", "main.py"], env=env)
     return
 
 
