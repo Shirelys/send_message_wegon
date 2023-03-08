@@ -30,3 +30,4 @@ jobs:
       START_DATE: ${{ secrets.START_DATE }}
       CITY: ${{ secrets.CITY }}
       END_DATE: ${{ secrets.END_DATE }}
+      WEATHER_APIKEY: ${{ secrets.WEATHER_APIKEY }}
