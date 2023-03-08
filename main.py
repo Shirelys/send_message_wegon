@@ -137,7 +137,7 @@ def split_dates(aim_dates):
 
 weather = get_weather()
 airqu = get_airqu()
-realtimeweather = get_realtimeweather()
+realtimeweather = float(get_realtimeweather())
 
 if weather is None:
   print('获取天气失败')
