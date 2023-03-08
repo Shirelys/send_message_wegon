@@ -137,7 +137,7 @@ def split_dates(aim_dates):
 
 weather = get_weather()
 airqu = get_airqu()
-realtimeweather = float(get_realtimeweather())
+realtimeweather = get_realtimeweather()
 
 if weather is None:
   print('获取天气失败')
@@ -185,17 +185,17 @@ data = {
   },
   # 实时温度
   "temperature": {
-    "value": math.floor(realtimeweather),
+    "value": realtimeweather,
     "color": get_random_color()
   },
   # 最高温
   "highest": {
-    "value": math.floor(weather['tempMax']),
+    "value": weather['tempMax'],
     "color": get_random_color()
   },
   # 最低温度
   "lowest": {
-    "value": math.floor(weather['tempMin']),
+    "value": weather['tempMin'],
     "color": get_random_color()
   },
   # 正计时
