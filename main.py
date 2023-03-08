@@ -14,6 +14,8 @@ today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
 # 开始日正数
 start_date = os.getenv('START_DATE')
 city = os.getenv('CITY')
+weather_apikey = os.getenv('WEATHER_APIKEY')
+wai = weather_apikey
 # 生日，最终日倒数
 # birthday = os.getenv('BIRTHDAY')
 end_date = os.getenv('END_DATE')
@@ -36,18 +38,44 @@ if template_id is None:
   print('请设置 TEMPLATE_ID')
   exit(422)
 
+if city is None or weather_apikey is None:
+  print('没有城市行政区域编码或者apikey')
+  city_id = None
+else:
+  city_idurl = f"https://geoapi.qweather.com/v2/city/lookup?location={city}&key={wai}"
+  city_data = json.loads(requests.get(city_idurl).content.decode('utf-8'))['location'][0]
+  city_id = city_data.get("id")
+  city_name = city_data.get('name')
+
 # weather 直接返回对象，在使用的地方用字段进行调用。
 def get_weather():
-  if city is None:
-    print('请设置城市')
+  
+  if city_id is None:
     return None
-  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
-  res = requests.get(url).json()
-  if res is None:
-    return None
-  weather = res['data']['list'][0]
+  weatherurl = f"https://devapi.qweather.com/v7/weather/3d?location={city_id}&key={wai}&lang=zh"
+  weather = json.loads(requests.get(weatherurl).content.decode('utf-8'))["daily"][0]
   return weather
+#   res = requests.get(url).json()
+#   if res is None:
+#     return None
+#   weather = res['data']['list'][0]
+#   return weather
 
+def get_realtimeweather():
+  if city_id is None:
+    return None
+  realtimeweatherurl = f"https://devapi.qweather.com/v7/weather/now?location={city_id}&key={wai}&lang=zh"
+  realtimeweather = json.loads(requests.get(realtimeweatherurl).content.decode('utf-8'))["now"]["temp"]
+  return realtimeweather
+
+# 获取空气质量
+def get_airqu():
+  air_quurl = f'https://devapi.qweather.com/v7/air/5d?location={city_id}&key={wai}&lang-zh'
+  if city_id is None:
+    return None
+  airqu = json.loads(requests.get(air_quurl).content.decode('utf-8'))["daily"][0]
+  return airqu
+  
 # 获取当前日期为星期几
 def get_week_day():
   week_list = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
@@ -107,13 +135,16 @@ def split_dates(aim_dates):
   return aim_dates.split('\n')
 
 weather = get_weather()
+airqu = get_airqu()
+realtimeweather = get_realtimeweather()
+
 if weather is None:
   print('获取天气失败')
   exit(422)
 data = {
   # 城市
   "city": {
-    "value": city,
+    "value": city_name,
     "color": get_random_color()
   },
   # 今天日期
@@ -128,42 +159,42 @@ data = {
   },
   # 天气状况
   "weather": {
-    "value": weather['weather'],
+    "value": f"白天：{weather[textDay]}  ;  夜晚：{weather[textNight]}",
     "color": get_random_color()
   },
   # 湿度
   "humidity": {
-    "value": weather['humidity'],
+    "value": weather['humidity']+"%",
     "color": get_random_color()
   },
   # 风力
   "wind": {
-    "value": weather['wind'],
+    "value": f"白天：{weather[windScaleDay]}级  ;  夜晚：{weather[windScaleNight]}级",
     "color": get_random_color()
   },
 
   "air_data": {
-    "value": weather['airData'],
+    "value": airqu['aqi'],
     "color": get_random_color()
   },
   # 空气质量
   "air_quality": {
-    "value": weather['airQuality'],
+    "value": airqu['category'],
     "color": get_random_color()
   },
-  # 温度
+  # 实时温度
   "temperature": {
-    "value": math.floor(weather['temp']),
+    "value": math.floor(realtimeweather),
     "color": get_random_color()
   },
   # 最高温
   "highest": {
-    "value": math.floor(weather['high']),
+    "value": math.floor(weather['tempMax']),
     "color": get_random_color()
   },
   # 最低温度
   "lowest": {
-    "value": math.floor(weather['low']),
+    "value": math.floor(weather['tempMin']),
     "color": get_random_color()
   },
   # 正计时
