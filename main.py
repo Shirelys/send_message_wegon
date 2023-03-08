@@ -160,7 +160,7 @@ data = {
   },
   # 天气状况
   "weather": {
-    "value": f"白天：{weather[textDay]}  ;  夜晚：{weather[textNight]}",
+    "value": f"白天：{weather['textDay']}  ;  夜晚：{weather['textNight']}",
     "color": get_random_color()
   },
   # 湿度
@@ -170,7 +170,7 @@ data = {
   },
   # 风力
   "wind": {
-    "value": f"白天：{weather[windScaleDay]}级  ;  夜晚：{weather[windScaleNight]}级",
+    "value": f"白天：{weather['windScaleDay']}级  ;  夜晚：{weather['windScaleNight']}级",
     "color": get_random_color()
   },
 
